@@ -1,0 +1,24 @@
+As part of the given, we need to describe the present state of the system - all the information that we need to
+send as part of our request: header, body request, authorization key.
+
+When - represent the action that we are going to take, the ivent that is going happend. For example: execute get
+request. It can be post, put, delete.
+
+Then statment represent the outcome. The result of the action that we took. Here we can validate the outcome
+(response body, http status code, response headers, cookies) <-- so we might want to validate all those things
+
+
+Пример работы с Postman API в https://www.jdoodle.com/execute-groovy-online/
+В этом редакторе мы вводим импорт и JSON (rest responce из Postman-a). Для чего? Для того чтобы ниже после
+риспонса, с помощью groovy языка обращатся к элементы из JSON (rest assured - понимает groovy path) и получать
+ответ. А это для чего? Чтобы в джава коде затем делать ассерты (сравнения) т.е. сравнивать то что есть на
+сервере с ожидаемым результатом. Смотри then statment, метод body().
+import groovy.json.JsonSlurper
+
+def jsonSlurper = new JsonSlurper()
+def object = jsonSlurper.parseText(
+          '{"workspaces":[{"id":"ae729dbb-9611-4e00-8138-749b476f1d6d","name":"First_Workspace","type":"personal","visibility":"personal"},{"id":"4b5aad7e-6c2c-4052-b8ff-3f4b6d31b4ea","name":"Om_Pracash_Tutorial","type":"personal","visibility":"personal"}]}'
+)
+
+def query = object.workspaces.size()
+println query
